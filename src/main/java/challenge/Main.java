@@ -13,13 +13,24 @@ public class Main {
     public  final static String FILE_100="100x100.json";
 
     public static void main(String[] args) throws IOException {
-        Main m=new Main(FILE_20K,20000);
+
+        //Main m=new Main(FILE_20K,20000);
         //Main m=new Main(FILE_10K,10000);
         //Main m=new Main(FILE_1K,1000);
         //Main m=new Main(FILE_100,100);
-        m.run();
-    }
+        //m.run();
 
+        Utils.printTitle("Adjacent Cells");
+        String file=Utils.readLineFromConsole("File path");
+        int size=Integer.parseInt(Utils.readLineFromConsole("matrix size"));
+        try {
+            Main m=new Main(file,size);
+            m.run();
+        }catch (IOException e){
+            System.out.println("Invalid file/path");
+        }
+
+    }
 
     private String file;
     private int size;
