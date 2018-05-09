@@ -11,6 +11,8 @@ public class Main {
     public  final static String FILE_10K="10000x10000.json";
     public  final static String FILE_1K="1000x1000.json";
     public  final static String FILE_100="100x100.json";
+    public  final static String U_SHAPE="u_shape.json";
+    public  final static String COBRA_SHAPE="cobra_shape.json";
 
     public static void main(String[] args) throws IOException {
 
@@ -18,6 +20,8 @@ public class Main {
         //Main m=new Main(FILE_10K,10000);
         //Main m=new Main(FILE_1K,1000);
         //Main m=new Main(FILE_100,100);
+        //Main m=new Main(COBRA_SHAPE,6);
+        //Main m=new Main(U_SHAPE,6);
         //m.run();
 
         Utils.printTitle("Adjacent Cells");
@@ -107,6 +111,17 @@ public class Main {
         }
     }
 
+    private void searchUp(int[][]matrix,int size,int row, int col,List<Cells> list){
+        if(row<0 || col<0  || col>=size)return;
+        if (matrix[row][col] == 1) {
+            list.add(new Cells(col,row));
+            matrix[row][col]=0;
+            searchUp(matrix,size,row-1,col,list);
+            searchRight(matrix,size,row,col+1,list);
+            searchLeft(matrix,size,row,col-1,list);
+        }
+    }
+
     /**
      * search for adjacent cells on the left side
      * @param matrix
@@ -120,6 +135,7 @@ public class Main {
             searchLeft(matrix,size,row,col-1,list);
             list.add(new Cells(col,row));
             matrix[row][col]=0;
+            searchUp(matrix,size,row-1,col,list);
             searchDown(matrix,size,row+1,col,list);
         }
     }
@@ -137,6 +153,7 @@ public class Main {
                 searchRight(matrix,size,row,col+1,list);
                 list.add(new Cells(col,row));
                 matrix[row][col]=0;
+                searchUp(matrix,size,row-1,col,list);
                 searchDown(matrix,size,row+1,col,list);
             }
     }
